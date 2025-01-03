@@ -6,7 +6,7 @@
 #    By: lbuisson <lbuisson@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/17 17:11:29 by lbuisson          #+#    #+#              #
-#    Updated: 2025/01/03 13:26:29 by lbuisson         ###   ########lyon.fr    #
+#    Updated: 2025/01/03 14:52:28 by lbuisson         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ $(NAME): $(OBJS)
 
 all: $(NAME)
 
-%.o: %.c Makefile include/pipex.h
+%.o: %.c Makefile pipex.h libft/libft.h
 	$(CC) $(CFLAGS) -I . -c $< -o $@
 
 clean:

@@ -38,7 +38,7 @@ void	pipex(char **argv, char **envp)
 		error_handler(EINVAL, "cmd2 not found", pipex);
 	pipex->exec2 = ft_strdup(exec);
 	free(exec);
-	create_pipes(pipex, argv);
+	create_pipes(pipex, argv, envp);
 	// printf("exec2 = %s\n", pipex->exec2);
 	free_pipex(pipex);
 }
