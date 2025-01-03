@@ -6,7 +6,7 @@
 #    By: lbuisson <lbuisson@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/17 17:11:29 by lbuisson          #+#    #+#              #
-#    Updated: 2025/01/03 10:36:05 by lbuisson         ###   ########lyon.fr    #
+#    Updated: 2025/01/03 13:26:29 by lbuisson         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = pipex
 CC = cc
 # CFLAGS = -Wall -Wextra -Werror
 
-SRCS = main.c utils.c get_exec.c
+SRCS = main.c utils.c get_exec.c pipex.c
 OBJS = $(SRCS:.c=.o)
 
 LIBFT_DIR = ./libft
@@ -27,7 +27,7 @@ $(NAME): $(OBJS)
 
 all: $(NAME)
 
-%.o: %.c Makefile include/fdf.h
+%.o: %.c Makefile include/pipex.h
 	$(CC) $(CFLAGS) -I . -c $< -o $@
 
 clean:

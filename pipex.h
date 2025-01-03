@@ -7,6 +7,9 @@
 # include <errno.h>
 # include <unistd.h>
 # include "libft/libft.h"
+# include <sys/types.h>
+# include <sys/wait.h>
+
 
 typedef struct s_pipex
 {
@@ -21,6 +24,7 @@ typedef struct s_pipex
 
 void	check_files(char *infile, char *outfile, t_pipex *pipex);
 char	*find_exec_cmd(char *cmd, char **envp, t_pipex *pipex);
+void	create_pipes(t_pipex *pipex, char **argv);
 char	*error_handler(int errnum, char *message, t_pipex *pipex);
 void	ft_free_double(char **strs);
 

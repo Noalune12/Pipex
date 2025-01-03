@@ -1,6 +1,6 @@
 #include "pipex.h"
 
-char	*find_path(char *cmd, char **envp, t_pipex *pipex)
+char	*find_path(char **envp, t_pipex *pipex)
 {
 	char	**env;
 
@@ -130,13 +130,18 @@ char	*find_exec_cmd(char *cmd, char **envp, t_pipex *pipex)
 {
 	char	*full_path;
 
-	find_path(cmd, envp, pipex);
+	find_path(envp, pipex);
 	if (!pipex->path_env)
 		return (NULL);
-	printf("Path env = %s\n\n", pipex->path_env);
+	// printf("Path env = %s\n\n", pipex->path_env);
 	pipex->args = ft_split(cmd, " ");
 	if (!pipex->args)
 		error_handler(ENOMEM, "Split failed", pipex);
+	if (!pipex->args[0])
+	{
+		ft_free_double(pipex->args);
+		error_handler(EINVAL, "Invalid cmd", pipex);
+	}
 	full_path = find_full_path(pipex->path_env, pipex);
 	free(pipex->path_env);
 	ft_free_double(pipex->args);

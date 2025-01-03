@@ -31,14 +31,15 @@ void	pipex(char **argv, char **envp)
 	if (!exec)
 		error_handler(EINVAL, "cmd1 not found", pipex);
 	pipex->exec1 = ft_strdup(exec);
-	printf("exec1 = %s\n", pipex->exec1);
+	// printf("exec1 = %s\n", pipex->exec1);
 	free(exec);
 	exec = find_exec_cmd(argv[3], envp, pipex);
 	if (!exec)
 		error_handler(EINVAL, "cmd2 not found", pipex);
 	pipex->exec2 = ft_strdup(exec);
 	free(exec);
-	printf("exec2 = %s\n", pipex->exec2);
+	create_pipes(pipex, argv);
+	// printf("exec2 = %s\n", pipex->exec2);
 	free_pipex(pipex);
 }
 
