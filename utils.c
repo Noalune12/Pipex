@@ -29,8 +29,8 @@ char	*error_handler(int errnum, char *message, t_pipex *pipex)
 		free(pipex->exec2);
 	// if (pipex->full_path)
 	// 	free(pipex->full_path);
-	if (pipex->path_env)
-		free(pipex->path_env);
+	// if (pipex->path_env)
+	// 	free(pipex->path_env);
 	free(pipex);
 	errno = errnum;
 	perror(message);

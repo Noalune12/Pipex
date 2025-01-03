@@ -106,6 +106,7 @@ char	*find_full_path(char *path_env, t_pipex *pipex)
 		i++;
 	}
 	ft_free_double(paths);
+	free(full_path);
 	return (NULL);
 	// char	*start;
 	// char	*end;
@@ -143,6 +144,7 @@ char	*find_exec_cmd(char *cmd, char **envp, t_pipex *pipex)
 		error_handler(EINVAL, "Invalid cmd", pipex);
 	}
 	full_path = find_full_path(pipex->path_env, pipex);
+	printf("full path = %s\n", full_path);
 	free(pipex->path_env);
 	ft_free_double(pipex->args);
 	return (full_path);
