@@ -6,7 +6,7 @@
 #    By: lbuisson <lbuisson@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/17 17:11:29 by lbuisson          #+#    #+#              #
-#    Updated: 2025/01/03 08:19:06 by lbuisson         ###   ########lyon.fr    #
+#    Updated: 2025/01/03 10:36:05 by lbuisson         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = pipex
 CC = cc
 # CFLAGS = -Wall -Wextra -Werror
 
-SRCS = main.c
+SRCS = main.c utils.c get_exec.c
 OBJS = $(SRCS:.c=.o)
 
 LIBFT_DIR = ./libft

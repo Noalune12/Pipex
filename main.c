@@ -1,48 +1,45 @@
 #include "pipex.h"
 
-int	check_infile(char *infile)
+void	init_pipex(t_pipex *pipex)
 {
-	int	fd;
-
-	fd = open(infile, O_RDONLY);
-	if (fd < 0)
-	{
-		perror("Error opening input file");
-		exit(EXIT_FAILURE);
-	}
-	return (fd);
+	pipex->exec1 = NULL;
+	pipex->exec2 = NULL;
+	// pipex->full_path = NULL;
+	pipex->path_env = NULL;
 }
 
-int	check_outfile(char *outfile)
+void	free_pipex(t_pipex *pipex)
 {
-	int	fd;
-
-	fd = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (fd < 0)
-	{
-		perror("Error opening output file");
-		exit(EXIT_FAILURE);
-	}
-	return (fd);
+	close(pipex->infile);
+	close(pipex->outfile);
+	free(pipex->exec1);
+	free(pipex->exec2);
+	free(pipex);
 }
-
-
-//first cmd
-//scd cmd
-//find exec
 
 void	pipex(char **argv, char **envp)
 {
-	int		infile;
-	int		outfile;
-	char	*cmd1;
-	char	*cmd2;
+	t_pipex	*pipex;
+	char	*exec;
 
-	infile = check_infile(argv[1]);
-	outfile = check_outfile(argv[4]);
-
-	close(infile);
-	close(outfile);
+	pipex = malloc(sizeof(t_pipex));
+	if (!pipex)
+		error_handler(ENOMEM, "alloc pipex failed", pipex);
+	check_files(argv[1], argv[4], pipex);
+	init_pipex(pipex);
+	exec = find_exec_cmd(argv[2], envp, pipex);
+	if (!exec)
+		error_handler(EINVAL, "cmd1 not found", pipex);
+	pipex->exec1 = ft_strdup(exec);
+	printf("exec1 = %s\n", pipex->exec1);
+	free(exec);
+	exec = find_exec_cmd(argv[3], envp, pipex);
+	if (!exec)
+		error_handler(EINVAL, "cmd2 not found", pipex);
+	pipex->exec2 = ft_strdup(exec);
+	free(exec);
+	printf("exec2 = %s\n", pipex->exec2);
+	free_pipex(pipex);
 }
 
 int	main(int argc, char **argv, char **envp)
