@@ -24,7 +24,10 @@ int	error_handler(int errnum, char *message, char **strs)
 		ft_free_double(strs);
 	errno = errnum;
 	perror(message);
-	exit(EXIT_FAILURE);
+	// if (errnum == 127)
+	// 	exit(errnum);
+	// else
+		exit(EXIT_FAILURE);
 }
 
 // char	*error_handler_NULL(int errnum, char *message)

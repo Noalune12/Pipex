@@ -1,5 +1,40 @@
 #include "pipex.h"
 
+void	open_dup(int index, char **av, int pipefd[2])
+{
+	int	infile;
+	int	outfile;
+
+	if (index == 0)
+	{
+		close(pipefd[0]);
+		infile = open(av[1], O_RDONLY);
+		if (infile < 0)
+		{
+			close(pipefd[1]);
+			error_handler(errno, "Error opening input file", NULL);
+		}
+		dup2(infile, STDIN_FILENO);
+		dup2(pipefd[1], STDOUT_FILENO);
+		close(pipefd[1]);
+		close(infile);
+	}
+	else
+	{
+		close(pipefd[1]);
+		outfile = open(av[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		if (outfile < 0)
+		{
+			close(pipefd[0]);
+			error_handler(errno, "Error opening output file", NULL);
+		}
+		dup2(pipefd[0], STDIN_FILENO);
+		dup2(outfile, STDOUT_FILENO);
+		close(pipefd[0]);
+		close(outfile);
+	}
+}
+
 void	child_process(int index, char **av, char **envp, int pipefd[2])
 {
 	int pid;
@@ -10,8 +45,7 @@ void	child_process(int index, char **av, char **envp, int pipefd[2])
 	if (pid == 0)
 	{
 		// dup
-		close(pipefd[0]);
-		close(pipefd[1]);
+		open_dup(index, av, pipefd);
 		// get path
 		execute_cmd(av[index + 2], envp);
 	}
@@ -21,6 +55,7 @@ void	pipex(int ac, char **av, char **envp)
 {
 	int		pipefd[2]; // 0 - read, 1 - write
 	int		i;
+	int		status;
 
 	if (pipe(pipefd) == -1)
 		error_handler(errno, "pipe failed", NULL);
@@ -35,13 +70,21 @@ void	pipex(int ac, char **av, char **envp)
 	i = 0;
 	while (ac - 3 > i)
 	{
-		wait(NULL);
+		wait(&status);
+		// if ()
+		// wait(&status);
+		// if (wait(&status) == -1)
+		// 	error_handler(errno, "wait failed", NULL);
 		i++;
 	}
+	if (status != 0)
+		error_handler(errno, "cmd failed", NULL); //errno ??
 }
 
 int	main(int argc, char **argv, char **envp)
 {
+	int	outfile;
+
 	if (argc != 5)
 	{
 		errno = EINVAL;
@@ -49,5 +92,9 @@ int	main(int argc, char **argv, char **envp)
 		exit(EXIT_FAILURE);
 	}
 	pipex(argc, argv, envp);
+	outfile = open(argv[4], O_WRONLY); //why not working with sleep inside pipex
+	if (outfile < 0)
+		exit(EXIT_FAILURE);
+	close(outfile);
 	exit(EXIT_SUCCESS);
 }

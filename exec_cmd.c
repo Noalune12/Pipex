@@ -1,5 +1,6 @@
 #include "pipex.h"
 
+//close pipefd add to
 char	*join_full_path(char *path, char **cmds, char **paths)
 {
 	char	*dir;
@@ -73,7 +74,7 @@ char	*find_exec_cmd(char **cmds, char **envp)
 	full_path = find_full_path(cmds, path_env);
 	free(path_env);
 	if (!full_path)
-		error_handler(errno, "cmd not found", cmds);
+		error_handler(127, "cmd not found", cmds);
 	return (full_path);
 }
 
@@ -86,7 +87,7 @@ void	execute_cmd(char *cmd, char **envp)
 	if (!cmds)
 		error_handler(errno, "Split failed", NULL); //close pipefd ??
 	if (!cmds[0])
-		error_handler(EINVAL, "Invalid cmd", cmds); //close pipefd ??
+		error_handler(errno, "Invalid cmd", cmds); //close pipefd ??
 	exec = find_exec_cmd(cmds, envp);
 	printf("path = %s\n", exec);
 	if (execve(exec, cmds, envp) == -1)
