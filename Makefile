@@ -6,7 +6,7 @@
 #    By: lbuisson <lbuisson@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/17 17:11:29 by lbuisson          #+#    #+#              #
-#    Updated: 2025/01/06 14:22:34 by lbuisson         ###   ########lyon.fr    #
+#    Updated: 2025/01/06 14:34:51 by lbuisson         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,11 @@ SRCS_DIR = ./srcs
 SRCS = main.c exec_cmd.c utils.c
 SRCS_FILES = $(addprefix $(SRCS_DIR)/, $(SRCS))
 OBJS = $(SRCS_FILES:.c=.o)
+
+BONUS_DIR = ./bonus
+BONUS = main_bonus.c exec_cmd_bonus.c utils_bonus.c
+BONUS_FILES = $(addprefix $(BONUS_DIR)/, $(BONUS))
+OBJS_BONUS = $(BONUS_FILES:.c=.o)
 
 LIBFT_DIR = ./libft
 LIBFT_A = $(LIBFT_DIR)/libft.a
@@ -38,6 +43,13 @@ $(NAME): $(OBJS) $(LIBFT_FILES)
 
 all: $(NAME)
 
+bonus: $(NAME) $(OBJS_BONUS)
+	$(MAKE) fclean -C $(LIBFT_DIR)
+	rm -f $(NAME)
+	rm -rf $(OBJS)
+	$(MAKE) -C $(LIBFT_DIR)
+	$(CC) $(CFLAGS) $(OBJS_BONUS) $(LIBFT_FLAGS) -o $(NAME)
+
 %.o: %.c Makefile include/pipex.h libft/libft.h
 	$(CC) $(CFLAGS) -I . -c $< -o $@
 
@@ -50,4 +62,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus
