@@ -51,7 +51,7 @@ char	*find_full_path(char **cmds, char *path_env)
 	return (NULL);
 }
 
-char	*find_exec_cmd(char **cmds, char **envp, int check)
+char	*find_exec_cmd(char **cmds, char **envp)
 {
 	char	*full_path;
 	char	*path_env;
@@ -75,11 +75,8 @@ char	*find_exec_cmd(char **cmds, char **envp, int check)
 	free(path_env);
 	if (!full_path)
 	{
-		// printf("errno = %d\n\n", errno);
-		if (check == 0)
-			error_handler(errno, "cmd not found", cmds);
-		ft_free_double(cmds);
-		exit(127);
+		printf("errno = %d\n\n", errno);
+		error_handler(127, "cmd not found", cmds);
 	}
 	return (full_path);
 }
@@ -94,8 +91,8 @@ void	execute_cmd(char *cmd, char **envp)
 		error_handler(errno, "Split failed", NULL); //close pipefd ??
 	if (!cmds[0])
 		error_handler(errno, "Invalid cmd", cmds); //close pipefd ??
-	exec = find_exec_cmd(cmds, envp, 0);
-	// printf("path = %s\n", exec);
+	exec = find_exec_cmd(cmds, envp);
+	printf("path = %s\n", exec);
 	if (execve(exec, cmds, envp) == -1)
 	{
 		free(exec);

@@ -52,14 +52,12 @@ void	child_process(int index, char **av, char **envp, int pipefd[2])
 	// waitpid(pid, NULL, 0);
 }
 
-char	*find_exec_cmd(char **cmds, char **envp, int check);
-
 void	pipex(int ac, char **av, char **envp)
 {
 	int		pipefd[2]; // 0 - read, 1 - write
 	int		i;
 	int		status;
-	int		exit_status;
+	int exit_status;
 
 	if (pipe(pipefd) == -1)
 		error_handler(errno, "pipe failed", NULL);
@@ -72,19 +70,27 @@ void	pipex(int ac, char **av, char **envp)
 	close(pipefd[0]);
 	close(pipefd[1]);
 	i = 0;
-	while (ac - 3 > i)
-	{
-	wait(&status);
-	if (WIFEXITED(status))
-		exit_status = WEXITSTATUS(status);
-	i++;
-	}
-	char **cmds = ft_split(av[3], " ");
-	char *exec = find_exec_cmd(cmds, envp, 1); // write error 2 times
-	free(exec);
-	ft_free_double(cmds);
-	if (exit_status != 0)
-		exit(exit_status);
+	// while (ac - 3 > i)
+	// {
+	// 	// waitpid(-1, &status, 0);
+	// 	// if ()
+	// 	wait(&status);
+	// 	printf("status = %d\n\n", status);
+	// 	if (WIFEXITED(status))
+	// 		exit_status = WEXITSTATUS(status);
+	// 	// if (wait(&status) == -1)
+	// 	// 	error_handler(errno, "wait failed", NULL);
+	// 	// if (waitpid(-1, &status, 0) < 0)
+	// 	// {
+	// 	// 	if (WIFEXITED(status))
+	// 	// 		exit_status = WEXITSTATUS(status);
+	// 	// }
+	// 	if (exit_status != 0)
+	// 		exit(exit_status);
+	// 	i++;
+	// }
+	// printf("exit status = %d\n\n", exit_status);
+		// error_handler(0, "", NULL); //errno ??
 }
 
 int	main(int argc, char **argv, char **envp)
