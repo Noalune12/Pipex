@@ -6,11 +6,11 @@
 /*   By: lbuisson <lbuisson@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:34:53 by lbuisson          #+#    #+#             */
-/*   Updated: 2025/01/06 13:37:00 by lbuisson         ###   ########lyon.fr   */
+/*   Updated: 2025/01/06 14:15:48 by lbuisson         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../include/pipex.h"
 
 char	*find_env_path(char **envp, char **cmds)
 {

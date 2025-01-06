@@ -6,7 +6,7 @@
 /*   By: lbuisson <lbuisson@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:40:52 by lbuisson          #+#    #+#             */
-/*   Updated: 2025/01/06 13:40:53 by lbuisson         ###   ########lyon.fr   */
+/*   Updated: 2025/01/06 14:15:29 by lbuisson         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <fcntl.h>
 # include <errno.h>
 # include <unistd.h>
-# include "libft/libft.h"
+# include "../libft/libft.h"
 # include <sys/types.h>
 # include <sys/wait.h>
 

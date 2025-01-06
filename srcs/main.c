@@ -6,11 +6,11 @@
 /*   By: lbuisson <lbuisson@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:37:09 by lbuisson          #+#    #+#             */
-/*   Updated: 2025/01/06 14:07:08 by lbuisson         ###   ########lyon.fr   */
+/*   Updated: 2025/01/06 14:15:52 by lbuisson         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../include/pipex.h"
 
 void	dup_outfile(char **av, int pipefd[2])
 {
