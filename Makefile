@@ -6,13 +6,13 @@
 #    By: lbuisson <lbuisson@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/17 17:11:29 by lbuisson          #+#    #+#              #
-#    Updated: 2025/01/06 07:34:01 by lbuisson         ###   ########lyon.fr    #
+#    Updated: 2025/01/06 13:29:13 by lbuisson         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 CC = cc
-CFLAGS = -g3
+CFLAGS = -Wall -Werror -Wextra -g3
 
 # SRCS = main.c utilsV1.c get_exec.c pipexV1.c
 SRCS = main.c exec_cmd.c utils.c

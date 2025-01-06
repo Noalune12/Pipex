@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lbuisson <lbuisson@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/06 13:39:34 by lbuisson          #+#    #+#             */
+/*   Updated: 2025/01/06 13:39:38 by lbuisson         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
-#include "libft/ft_printf/ft_printf.h"
 
 void	ft_free_double(char **strs)
 {
@@ -26,7 +37,6 @@ int	error_handler(int errnum, char *message, char **strs)
 	if (errnum)
 	{
 		errno = errnum;
-		// ft_printf("errno = %d\n\n", errno);
 		perror(message);
 	}
 	if (errnum == 127)
@@ -34,9 +44,15 @@ int	error_handler(int errnum, char *message, char **strs)
 	exit(EXIT_FAILURE);
 }
 
-// char	*error_handler_NULL(int errnum, char *message)
-// {
-// 	errno = errnum;
-// 	perror(message);
-// 	return (NULL);
-// }
+void	check_cmd(char *cmd, char **envp, int check)
+{
+	char	**cmds;
+	char	*exec;
+
+	cmds = ft_split(cmd, " ");
+	if (!cmds)
+		error_handler(errno, "Split failed", NULL);
+	exec = find_exec_cmd(cmds, envp, check);
+	free(exec);
+	ft_free_double(cmds);
+}
