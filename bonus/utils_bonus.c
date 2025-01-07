@@ -1,16 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbuisson <lbuisson@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:39:34 by lbuisson          #+#    #+#             */
-/*   Updated: 2025/01/06 14:15:57 by lbuisson         ###   ########lyon.fr   */
+/*   Updated: 2025/01/07 10:10:17 by lbuisson         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
+#include "../include/pipex_bonus.h"
+
+void	init_args(t_args *args, char **av, char **envp, int ac)
+{
+	args->av = av;
+	args->envp = envp;
+	args->ac = ac;
+}
+
+void	close_pipefd(int pipefd[2][2])
+{
+	close(pipefd[0][0]);
+	close(pipefd[0][1]);
+	close(pipefd[1][0]);
+	close(pipefd[1][1]);
+}
 
 void	ft_free_double(char **strs)
 {

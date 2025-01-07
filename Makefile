@@ -6,7 +6,7 @@
 #    By: lbuisson <lbuisson@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/17 17:11:29 by lbuisson          #+#    #+#              #
-#    Updated: 2025/01/07 09:38:34 by lbuisson         ###   ########lyon.fr    #
+#    Updated: 2025/01/07 10:00:05 by lbuisson         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRCS_FILES = $(addprefix $(SRCS_DIR)/, $(SRCS))
 OBJS = $(SRCS_FILES:.c=.o)
 
 BONUS_DIR = ./bonus
-BONUS = main_bonus.c exec_cmd_bonus.c utils_bonus.c
+BONUS = main_bonus.c exec_cmd_bonus.c utils_bonus.c dup_env_bonus.c
 BONUS_FILES = $(addprefix $(BONUS_DIR)/, $(BONUS))
 OBJS_BONUS = $(BONUS_FILES:.c=.o)
 
