@@ -6,7 +6,7 @@
 #    By: lbuisson <lbuisson@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/17 17:11:29 by lbuisson          #+#    #+#              #
-#    Updated: 2025/01/06 14:34:51 by lbuisson         ###   ########lyon.fr    #
+#    Updated: 2025/01/07 09:38:34 by lbuisson         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,7 @@ bonus: $(NAME) $(OBJS_BONUS)
 
 clean:
 	rm -rf $(OBJS)
+	rm -rf $(OBJS_BONUS)
 
 fclean: clean
 	$(MAKE) fclean -C $(LIBFT_DIR)

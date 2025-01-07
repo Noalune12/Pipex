@@ -6,19 +6,19 @@
 /*   By: lbuisson <lbuisson@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:37:09 by lbuisson          #+#    #+#             */
-/*   Updated: 2025/01/06 15:46:37 by lbuisson         ###   ########lyon.fr   */
+/*   Updated: 2025/01/07 08:47:26 by lbuisson         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 #include <stdio.h>
 
-void	dup_outfile(char **av, int pipefd[2])
+void	dup_outfile(char **av, int pipefd[2], int ac)
 {
 	int	outfile;
 
 	close(pipefd[1]);
-	outfile = open(av[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	outfile = open(av[ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (outfile < 0)
 	{
 		close(pipefd[0]);
@@ -36,6 +36,8 @@ void	open_dup(int ac, int index, char **av, int pipefd[2][2])
 
 	if (index == 0)
 	{
+		close(pipefd[1][1]);
+		close(pipefd[1][0]);
 		close(pipefd[0][0]);
 		infile = open(av[1], O_RDONLY);
 		if (infile < 0)
@@ -51,25 +53,37 @@ void	open_dup(int ac, int index, char **av, int pipefd[2][2])
 	else if (index == ac - 4)
 	{
 		if (index % 2 == 0)
-			dup_outfile(av, pipefd[1]);
+		{
+			close(pipefd[0][0]);
+			close(pipefd[0][1]);
+			dup_outfile(av, pipefd[1], ac);
+		}
 		else
-			dup_outfile(av, pipefd[0]);
+		{
+			close(pipefd[1][0]);
+			close(pipefd[1][1]);
+			dup_outfile(av, pipefd[0], ac);
+		}
 	}
-	else
+	else if (index != 0 && index != ac - 4)
 	{
 		if (index % 2 == 1)
 		{
 			close(pipefd[1][0]);
+			close(pipefd[0][1]);
 			dup2(pipefd[0][0], STDIN_FILENO);
 			dup2(pipefd[1][1], STDOUT_FILENO);
 			close(pipefd[0][0]);
+			close(pipefd[1][1]);
 		}
 		else
 		{
 			close(pipefd[1][1]);
-			dup2(pipefd[0][1], STDIN_FILENO);
-			dup2(pipefd[1][0], STDOUT_FILENO);
+			close(pipefd[0][0]);
+			dup2(pipefd[1][0], STDIN_FILENO);
+			dup2(pipefd[0][1], STDOUT_FILENO);
 			close(pipefd[0][1]);
+			close(pipefd[1][0]);
 		}
 	}
 }
@@ -85,6 +99,7 @@ void	child_process(int index, int ac, char **av, char **envp, int pipefd[2][2])
 	{
 		open_dup(ac, index, av, pipefd);
 		execute_cmd(av[index + 2], envp);
+		// exit(0);
 	}
 }
 
@@ -107,7 +122,7 @@ void	pipex(int ac, char **av, char **envp)
 	i = -1;
 	while (ac - 3 > ++i)
 	{
-		wait(&status);
+		waitpid(-1, &status, 0);
 		if (WIFEXITED(status))
 			exit_status = WEXITSTATUS(status);
 	}
