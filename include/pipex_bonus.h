@@ -6,7 +6,7 @@
 /*   By: lbuisson <lbuisson@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 09:45:52 by lbuisson          #+#    #+#             */
-/*   Updated: 2025/01/07 12:58:08 by lbuisson         ###   ########lyon.fr   */
+/*   Updated: 2025/01/07 13:00:05 by lbuisson         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_args
 }	t_args;
 
 void	init_args(t_args *args, char **av, char **envp, int ac);
+char	**split_cmd(char const *s, char *charset);
 void	execute_cmd(char *cmd, char **envp);
 char	*find_exec_cmd(char **cmds, char **envp, int check);
 void	ft_free_double(char **strs);

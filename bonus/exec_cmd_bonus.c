@@ -6,7 +6,7 @@
 /*   By: lbuisson <lbuisson@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:34:53 by lbuisson          #+#    #+#             */
-/*   Updated: 2025/01/07 09:46:20 by lbuisson         ###   ########lyon.fr   */
+/*   Updated: 2025/01/07 13:00:45 by lbuisson         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	execute_cmd(char *cmd, char **envp)
 	char	**cmds;
 	char	*exec;
 
-	cmds = ft_split(cmd, " ");
+	cmds = split_cmd(cmd, " '");
 	if (!cmds)
 		error_handler(errno, "Split failed", NULL);
 	if (!cmds[0])
