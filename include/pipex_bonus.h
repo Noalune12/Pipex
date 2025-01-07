@@ -6,7 +6,7 @@
 /*   By: lbuisson <lbuisson@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 09:45:52 by lbuisson          #+#    #+#             */
-/*   Updated: 2025/01/07 10:07:44 by lbuisson         ###   ########lyon.fr   */
+/*   Updated: 2025/01/07 12:58:08 by lbuisson         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include "../libft/libft.h"
 # include <sys/types.h>
 # include <sys/wait.h>
-
 
 typedef struct s_args
 {

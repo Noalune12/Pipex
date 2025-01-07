@@ -6,7 +6,7 @@
 #    By: lbuisson <lbuisson@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/17 17:11:29 by lbuisson          #+#    #+#              #
-#    Updated: 2025/01/07 10:00:05 by lbuisson         ###   ########lyon.fr    #
+#    Updated: 2025/01/07 11:39:17 by lbuisson         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra -g3
 
 SRCS_DIR = ./srcs
-SRCS = main.c exec_cmd.c utils.c
+SRCS = main.c exec_cmd.c utils.c split_cmd.c
 SRCS_FILES = $(addprefix $(SRCS_DIR)/, $(SRCS))
 OBJS = $(SRCS_FILES:.c=.o)
 

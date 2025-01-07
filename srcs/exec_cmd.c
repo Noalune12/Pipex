@@ -6,7 +6,7 @@
 /*   By: lbuisson <lbuisson@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:34:53 by lbuisson          #+#    #+#             */
-/*   Updated: 2025/01/06 14:15:48 by lbuisson         ###   ########lyon.fr   */
+/*   Updated: 2025/01/07 11:56:46 by lbuisson         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*find_env_path(char **envp, char **cmds)
 	return (path_env);
 }
 
-char	*join_full_path(char *path, char **cmds, char **paths)
+char	*join_full_path(char *path, char **cmds, char **paths, char *path_env)
 {
 	char	*dir;
 	char	*full_path;
@@ -43,12 +43,14 @@ char	*join_full_path(char *path, char **cmds, char **paths)
 	dir = ft_strjoin(path, "/");
 	if (!dir)
 	{
+		free(path_env);
 		ft_free_double(paths);
 		error_handler(ENOMEM, "Strjoin failed", cmds);
 	}
 	full_path = ft_strjoin(dir, cmds[0]);
 	if (!full_path)
 	{
+		free(path_env);
 		free(dir);
 		ft_free_double(paths);
 		error_handler(ENOMEM, "Strjoin failed", cmds);
@@ -68,11 +70,14 @@ char	*find_full_path(char **cmds, char *path_env)
 
 	paths = ft_split(path_env, ":");
 	if (!paths)
+	{
+		free(path_env);
 		error_handler(errno, "Split failed", cmds);
+	}
 	i = 0;
 	while (paths[i])
 	{
-		full_path = join_full_path(paths[i], cmds, paths);
+		full_path = join_full_path(paths[i], cmds, paths, path_env);
 		if (full_path)
 		{
 			ft_free_double(paths);
@@ -108,7 +113,7 @@ void	execute_cmd(char *cmd, char **envp)
 	char	**cmds;
 	char	*exec;
 
-	cmds = ft_split(cmd, " ");
+	cmds = split_cmd(cmd, " '");
 	if (!cmds)
 		error_handler(errno, "Split failed", NULL);
 	if (!cmds[0])
