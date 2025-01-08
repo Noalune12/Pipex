@@ -6,7 +6,7 @@
 /*   By: lbuisson <lbuisson@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:37:09 by lbuisson          #+#    #+#             */
-/*   Updated: 2025/01/07 10:09:56 by lbuisson         ###   ########lyon.fr   */
+/*   Updated: 2025/01/07 15:27:34 by lbuisson         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,17 +79,23 @@ int	main(int argc, char **argv, char **envp)
 	int		outfile;
 	t_args	args;
 
-	if (argc < 5)
+	if (argc == 6 && ft_strncmp(argv[1], "heredoc", 7) == 0)
 	{
-		errno = EINVAL;
+
+	}
+	else if (argc < 5)
+	{
 		perror("5 arguments min needed (./pipex file1 cmd1 cmd2 ... file2)");
 		exit(EXIT_FAILURE);
 	}
-	init_args(&args, argv, envp, argc);
-	pipex(&args);
-	outfile = open(argv[argc - 1], O_WRONLY);
-	if (outfile < 0)
-		exit(EXIT_FAILURE);
-	close(outfile);
+	else if (argc >= 5)
+	{
+		init_args(&args, argv, envp, argc);
+		pipex(&args);
+		outfile = open(argv[argc - 1], O_WRONLY);
+		if (outfile < 0)
+			exit(EXIT_FAILURE);
+		close(outfile);
+	}
 	exit(EXIT_SUCCESS);
 }

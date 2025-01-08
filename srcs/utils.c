@@ -6,13 +6,13 @@
 /*   By: lbuisson <lbuisson@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:39:34 by lbuisson          #+#    #+#             */
-/*   Updated: 2025/01/07 10:27:26 by lbuisson         ###   ########lyon.fr   */
+/*   Updated: 2025/01/08 09:45:31 by lbuisson         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-void	ft_free_double(char **strs)
+char	**ft_free_double(char **strs)
 {
 	size_t	i;
 
@@ -28,6 +28,7 @@ void	ft_free_double(char **strs)
 		free (strs);
 		strs = NULL;
 	}
+	return (NULL);
 }
 
 int	error_handler(int errnum, char *message, char **strs)

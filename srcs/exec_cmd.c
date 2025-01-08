@@ -6,7 +6,7 @@
 /*   By: lbuisson <lbuisson@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:34:53 by lbuisson          #+#    #+#             */
-/*   Updated: 2025/01/07 11:56:46 by lbuisson         ###   ########lyon.fr   */
+/*   Updated: 2025/01/08 09:10:33 by lbuisson         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,17 +113,16 @@ void	execute_cmd(char *cmd, char **envp)
 	char	**cmds;
 	char	*exec;
 
-	cmds = split_cmd(cmd, " '");
+	cmds = split_cmd(cmd, " ");
 	if (!cmds)
 		error_handler(errno, "Split failed", NULL);
 	if (!cmds[0])
 		error_handler(errno, "Invalid cmd", cmds);
 	exec = find_exec_cmd(cmds, envp, 0);
+	// char *cmdss[3] = {"grep", "", NULL};
 	if (execve(exec, cmds, envp) == -1)
 	{
 		free(exec);
 		error_handler(errno, "exec cmd1 failed", cmds);
 	}
-	free(exec);
-	ft_free_double(cmds);
 }
